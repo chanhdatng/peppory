@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liên hệ - Wireframe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            terracotta: '#C4A484',
+            sage: '#9CAF88',
+            sand: '#E5DDD3',
+            charcoal: '#4A4A4A',
+            cream: '#FAF8F5',
+          },
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Source Sans 3', 'sans-serif'],
+            accent: ['Caveat', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Source Sans 3', sans-serif; }
+    .texture-overlay {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+    }
+  </style>
+</head>
+<body class="bg-cream text-charcoal">
+  <div class="fixed inset-0 pointer-events-none texture-overlay"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-cream/90 backdrop-blur-sm z-50 border-b border-sand">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="font-heading text-2xl font-semibold text-charcoal">Peppory</a>
+      <div class="hidden md:flex gap-8">
+        <a href="index.html" class="font-body text-charcoal/70 hover:text-terracotta transition-colors">Trang chủ</a>
+        <a href="about.html" class="font-body text-charcoal/70 hover:text-terracotta transition-colors">Về chúng tôi</a>
+        <a href="showroom.html" class="font-body text-charcoal/70 hover:text-terracotta transition-colors">Showroom</a>
+        <a href="contact.html" class="font-body text-charcoal hover:text-terracotta transition-colors">Liên hệ</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="pt-32 pb-12 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="font-accent text-2xl text-terracotta mb-4">Kết nối</p>
+      <h1 class="font-heading text-5xl md:text-6xl font-medium text-charcoal mb-6">
+        Liên hệ
+      </h1>
+      <p class="font-body text-xl text-charcoal/70 max-w-2xl mx-auto">
+        Chúng tôi rất vui được lắng nghe từ bạn. Hãy gửi tin nhắn hoặc ghé thăm xưởng.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Content -->
+  <section class="py-12 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+      <!-- Contact Form -->
+      <div class="bg-sand/30 p-8 md:p-12 rounded-2xl">
+        <h2 class="font-heading text-2xl text-charcoal mb-6">Gửi tin nhắn</h2>
+        <form class="space-y-6">
+          <div>
+            <label class="font-body text-charcoal/70 text-sm block mb-2">Họ tên</label>
+            <input type="text" placeholder="Nguyễn Văn A" class="w-full px-4 py-3 bg-cream border border-sand rounded-xl font-body focus:border-terracotta focus:outline-none transition-colors">
+          </div>
+          <div>
+            <label class="font-body text-charcoal/70 text-sm block mb-2">Email</label>
+            <input type="email" placeholder="email@example.com" class="w-full px-4 py-3 bg-cream border border-sand rounded-xl font-body focus:border-terracotta focus:outline-none transition-colors">
+          </div>
+          <div>
+            <label class="font-body text-charcoal/70 text-sm block mb-2">Số điện thoại (không bắt buộc)</label>
+            <input type="tel" placeholder="0909 xxx xxx" class="w-full px-4 py-3 bg-cream border border-sand rounded-xl font-body focus:border-terracotta focus:outline-none transition-colors">
+          </div>
+          <div>
+            <label class="font-body text-charcoal/70 text-sm block mb-2">Nội dung</label>
+            <textarea rows="4" placeholder="Tôi muốn hỏi về..." class="w-full px-4 py-3 bg-cream border border-sand rounded-xl font-body focus:border-terracotta focus:outline-none transition-colors resize-none"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-terracotta hover:bg-terracotta/90 text-cream px-8 py-4 rounded-full font-body font-medium transition-colors">
+            Gửi tin nhắn
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="space-y-8">
+        <div>
+          <h2 class="font-heading text-2xl text-charcoal mb-6">Thông tin liên hệ</h2>
+          <div class="space-y-6">
+            <div class="flex gap-4">
+              <div class="w-12 h-12 bg-terracotta/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-body font-semibold text-charcoal">Địa chỉ xưởng</h3>
+                <p class="font-body text-charcoal/70">123 Đường ABC, Quận XYZ<br>TP. Hồ Chí Minh</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="w-12 h-12 bg-sage/30 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-body font-semibold text-charcoal">Email</h3>
+                <p class="font-body text-charcoal/70">hello@peppory.vn</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="w-12 h-12 bg-terracotta/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-body font-semibold text-charcoal">Điện thoại</h3>
+                <p class="font-body text-charcoal/70">0909 xxx xxx</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-heading text-xl text-charcoal mb-4">Giờ mở cửa</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between font-body">
+              <span class="text-charcoal/70">Thứ 2 - Thứ 6</span>
+              <span class="text-charcoal">9:00 - 18:00</span>
+            </div>
+            <div class="flex justify-between font-body">
+              <span class="text-charcoal/70">Thứ 7</span>
+              <span class="text-charcoal">10:00 - 16:00</span>
+            </div>
+            <div class="flex justify-between font-body">
+              <span class="text-charcoal/70">Chủ nhật</span>
+              <span class="text-charcoal">Đóng cửa</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-heading text-xl text-charcoal mb-4">Theo dõi chúng tôi</h3>
+          <div class="flex gap-4">
+            <a href="#" class="w-12 h-12 bg-sand rounded-full flex items-center justify-center hover:bg-terracotta hover:text-cream transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="#" class="w-12 h-12 bg-sand rounded-full flex items-center justify-center hover:bg-terracotta hover:text-cream transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Map Placeholder -->
+        <div class="aspect-video bg-sand rounded-2xl flex items-center justify-center">
+          <span class="text-charcoal/30 font-body">Google Maps</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-charcoal text-cream py-16 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12">
+      <div class="md:col-span-2">
+        <h3 class="font-heading text-2xl mb-4">Peppory</h3>
+        <p class="font-body text-cream/70 max-w-md">
+          Tiệm gốm thủ công với phong cách wabi-sabi, tôn vinh vẻ đẹp của sự không hoàn hảo.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-body font-semibold mb-4">Liên kết</h4>
+        <ul class="space-y-2 font-body text-cream/70">
+          <li><a href="index.html" class="hover:text-terracotta transition-colors">Trang chủ</a></li>
+          <li><a href="about.html" class="hover:text-terracotta transition-colors">Về chúng tôi</a></li>
+          <li><a href="showroom.html" class="hover:text-terracotta transition-colors">Showroom</a></li>
+          <li><a href="contact.html" class="hover:text-terracotta transition-colors">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-body font-semibold mb-4">Liên hệ</h4>
+        <ul class="space-y-2 font-body text-cream/70">
+          <li>hello@peppory.vn</li>
+          <li>0909 xxx xxx</li>
+          <li>TP. Hồ Chí Minh</li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-12 pt-8 border-t border-cream/10 text-center">
+      <p class="font-body text-cream/50 text-sm">© 2024 Peppory. Tất cả quyền được bảo lưu.</p>
+    </div>
+  </footer>
+</body>
+</html>

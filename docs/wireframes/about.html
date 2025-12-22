@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Về Peppory - Wireframe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            terracotta: '#C4A484',
+            sage: '#9CAF88',
+            sand: '#E5DDD3',
+            charcoal: '#4A4A4A',
+            cream: '#FAF8F5',
+          },
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Source Sans 3', 'sans-serif'],
+            accent: ['Caveat', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Source Sans 3', sans-serif; }
+    .texture-overlay {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+    }
+  </style>
+</head>
+<body class="bg-cream text-charcoal">
+  <div class="fixed inset-0 pointer-events-none texture-overlay"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-cream/90 backdrop-blur-sm z-50 border-b border-sand">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="font-heading text-2xl font-semibold text-charcoal">Peppory</a>
+      <div class="hidden md:flex gap-8">
+        <a href="index.html" class="font-body text-charcoal/70 hover:text-terracotta transition-colors">Trang chủ</a>
+        <a href="about.html" class="font-body text-charcoal hover:text-terracotta transition-colors">Về chúng tôi</a>
+        <a href="showroom.html" class="font-body text-charcoal/70 hover:text-terracotta transition-colors">Showroom</a>
+        <a href="contact.html" class="font-body text-charcoal/70 hover:text-terracotta transition-colors">Liên hệ</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="pt-32 pb-16 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="font-accent text-2xl text-terracotta mb-4">Về chúng tôi</p>
+      <h1 class="font-heading text-5xl md:text-6xl font-medium text-charcoal mb-6">
+        Câu chuyện Peppory
+      </h1>
+      <p class="font-body text-xl text-charcoal/70 max-w-2xl mx-auto">
+        Nơi nghệ thuật gốm gặp gỡ triết lý wabi-sabi
+      </p>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section class="py-16 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div class="aspect-[4/5] bg-sand rounded-2xl flex items-center justify-center order-2 md:order-1">
+        <span class="text-charcoal/30 font-body">Ảnh founder</span>
+      </div>
+      <div class="order-1 md:order-2">
+        <p class="font-accent text-xl text-sage mb-2">Khởi nguồn</p>
+        <h2 class="font-heading text-3xl md:text-4xl text-charcoal mb-6">Từ đam mê đến tác phẩm</h2>
+        <p class="font-body text-charcoal/70 text-lg mb-6 leading-relaxed">
+          Peppory được thành lập vào năm 2020, bắt đầu từ một xưởng nhỏ với niềm đam mê dành cho gốm thủ công. Chúng tôi tin rằng mỗi sản phẩm nên kể một câu chuyện riêng.
+        </p>
+        <p class="font-body text-charcoal/70 text-lg leading-relaxed">
+          Tên "Peppory" kết hợp giữa "pepper" (tiêu) - biểu tượng của sự đậm đà, cá tính - và "pottery" (gốm), thể hiện sự hòa quyện giữa truyền thống và cá tính riêng.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="py-24 px-6 bg-sand/30">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="font-accent text-xl text-terracotta mb-2">Triết lý</p>
+      <h2 class="font-heading text-4xl md:text-5xl text-charcoal mb-8">Wabi-sabi</h2>
+      <p class="font-body text-xl text-charcoal/70 mb-12 leading-relaxed">
+        Wabi-sabi là triết lý thẩm mỹ Nhật Bản tôn vinh vẻ đẹp của sự không hoàn hảo, tạm thời, và chưa hoàn thiện. Tại Peppory, chúng tôi áp dụng triết lý này vào từng sản phẩm.
+      </p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-cream p-8 rounded-2xl">
+          <div class="w-16 h-16 bg-terracotta/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-accent text-2xl text-terracotta">1</span>
+          </div>
+          <h3 class="font-heading text-xl text-charcoal mb-2">Không hoàn hảo</h3>
+          <p class="font-body text-charcoal/60">Mỗi vết nứt, vân men đều là dấu ấn độc nhất</p>
+        </div>
+        <div class="bg-cream p-8 rounded-2xl">
+          <div class="w-16 h-16 bg-sage/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-accent text-2xl text-sage">2</span>
+          </div>
+          <h3 class="font-heading text-xl text-charcoal mb-2">Đơn giản</h3>
+          <p class="font-body text-charcoal/60">Loại bỏ những thứ không cần thiết</p>
+        </div>
+        <div class="bg-cream p-8 rounded-2xl">
+          <div class="w-16 h-16 bg-terracotta/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-accent text-2xl text-terracotta">3</span>
+          </div>
+          <h3 class="font-heading text-xl text-charcoal mb-2">Tự nhiên</h3>
+          <p class="font-body text-charcoal/60">Tôn trọng nguyên liệu và quy trình tự nhiên</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="font-accent text-xl text-sage mb-2">Quy trình</p>
+        <h2 class="font-heading text-4xl md:text-5xl text-charcoal">Từ đất đến tác phẩm</h2>
+      </div>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="aspect-square bg-sand rounded-2xl mb-4 flex items-center justify-center">
+            <span class="text-charcoal/30 font-body text-sm">Ảnh nhào đất</span>
+          </div>
+          <h3 class="font-heading text-lg text-charcoal mb-1">Chuẩn bị đất</h3>
+          <p class="font-body text-charcoal/60 text-sm">Chọn lọc và nhào đất sét</p>
+        </div>
+        <div class="text-center">
+          <div class="aspect-square bg-sand rounded-2xl mb-4 flex items-center justify-center">
+            <span class="text-charcoal/30 font-body text-sm">Ảnh chuốt gốm</span>
+          </div>
+          <h3 class="font-heading text-lg text-charcoal mb-1">Tạo hình</h3>
+          <p class="font-body text-charcoal/60 text-sm">Chuốt tay trên bàn xoay</p>
+        </div>
+        <div class="text-center">
+          <div class="aspect-square bg-sand rounded-2xl mb-4 flex items-center justify-center">
+            <span class="text-charcoal/30 font-body text-sm">Ảnh tráng men</span>
+          </div>
+          <h3 class="font-heading text-lg text-charcoal mb-1">Tráng men</h3>
+          <p class="font-body text-charcoal/60 text-sm">Men tự pha, màu tự nhiên</p>
+        </div>
+        <div class="text-center">
+          <div class="aspect-square bg-sand rounded-2xl mb-4 flex items-center justify-center">
+            <span class="text-charcoal/30 font-body text-sm">Ảnh lò nung</span>
+          </div>
+          <h3 class="font-heading text-lg text-charcoal mb-1">Nung</h3>
+          <p class="font-body text-charcoal/60 text-sm">1200°C trong 12 giờ</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-charcoal text-cream py-16 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12">
+      <div class="md:col-span-2">
+        <h3 class="font-heading text-2xl mb-4">Peppory</h3>
+        <p class="font-body text-cream/70 max-w-md">
+          Tiệm gốm thủ công với phong cách wabi-sabi, tôn vinh vẻ đẹp của sự không hoàn hảo.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-body font-semibold mb-4">Liên kết</h4>
+        <ul class="space-y-2 font-body text-cream/70">
+          <li><a href="index.html" class="hover:text-terracotta transition-colors">Trang chủ</a></li>
+          <li><a href="about.html" class="hover:text-terracotta transition-colors">Về chúng tôi</a></li>
+          <li><a href="showroom.html" class="hover:text-terracotta transition-colors">Showroom</a></li>
+          <li><a href="contact.html" class="hover:text-terracotta transition-colors">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-body font-semibold mb-4">Liên hệ</h4>
+        <ul class="space-y-2 font-body text-cream/70">
+          <li>hello@peppory.vn</li>
+          <li>0909 xxx xxx</li>
+          <li>TP. Hồ Chí Minh</li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-12 pt-8 border-t border-cream/10 text-center">
+      <p class="font-body text-cream/50 text-sm">© 2024 Peppory. Tất cả quyền được bảo lưu.</p>
+    </div>
+  </footer>
+</body>
+</html>

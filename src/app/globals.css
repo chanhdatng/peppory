@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+:root {
+  --color-terracotta: #C4A484;
+  --color-terracotta-dark: #A68B6A;
+  --color-sage: #9CAF88;
+  --color-sand: #E5DDD3;
+  --color-charcoal: #4A4A4A;
+  --color-cream: #FAF8F5;
+}
+
+@theme inline {
+  --color-terracotta: var(--color-terracotta);
+  --color-terracotta-dark: var(--color-terracotta-dark);
+  --color-sage: var(--color-sage);
+  --color-sand: var(--color-sand);
+  --color-charcoal: var(--color-charcoal);
+  --color-cream: var(--color-cream);
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-source-sans);
+  --font-accent: var(--font-caveat);
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+}
+
+/* Paper texture overlay */
+.texture-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  z-index: 50;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
