@@ -1,8 +1,22 @@
 import Link from "next/link";
-import { products, formatPrice } from "@/data/products";
+import Image from "next/image";
+import { getFeaturedProducts, type Product } from "@/lib/supabase";
 
-export default function HomePage() {
-  const featuredProducts = products.slice(0, 3);
+function formatPrice(price: number) {
+  return new Intl.NumberFormat("vi-VN").format(price) + "đ";
+}
+
+export const revalidate = 60; // Revalidate every 60 seconds
+
+export default async function HomePage() {
+  let featuredProducts: Product[] = [];
+
+  try {
+    featuredProducts = await getFeaturedProducts();
+  } catch (error) {
+    // Fallback to empty array if Supabase not configured
+    console.error("Failed to fetch products:", error);
+  }
 
   return (
     <>
@@ -49,29 +63,58 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {featuredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group bg-[var(--color-cream)] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="aspect-square bg-[var(--color-sand)]/50 flex items-center justify-center">
-                  <span className="text-[var(--color-charcoal)]/30">
-                    Ảnh sản phẩm
-                  </span>
+            {featuredProducts.length > 0 ? (
+              featuredProducts.slice(0, 3).map((product) => (
+                <div
+                  key={product.id}
+                  className="group bg-[var(--color-cream)] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="aspect-square bg-[var(--color-sand)]/50 flex items-center justify-center relative">
+                    {product.image_url ? (
+                      <Image
+                        src={product.image_url}
+                        alt={product.name}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="text-[var(--color-charcoal)]/30">
+                        Ảnh sản phẩm
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-[family-name:var(--font-playfair)] text-xl text-[var(--color-charcoal)] mb-2">
+                      {product.name}
+                    </h3>
+                    <p className="text-[var(--color-charcoal)]/60 text-sm">
+                      {product.description}
+                    </p>
+                    <p className="font-[family-name:var(--font-caveat)] text-xl text-[var(--color-terracotta)] mt-3">
+                      {formatPrice(product.price)}
+                    </p>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="font-[family-name:var(--font-playfair)] text-xl text-[var(--color-charcoal)] mb-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-[var(--color-charcoal)]/60 text-sm">
-                    {product.description}
-                  </p>
-                  <p className="font-[family-name:var(--font-caveat)] text-xl text-[var(--color-terracotta)] mt-3">
-                    {formatPrice(product.price)}
-                  </p>
+              ))
+            ) : (
+              // Fallback placeholders
+              [1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="group bg-[var(--color-cream)] rounded-2xl overflow-hidden shadow-sm"
+                >
+                  <div className="aspect-square bg-[var(--color-sand)]/50 flex items-center justify-center">
+                    <span className="text-[var(--color-charcoal)]/30">
+                      Ảnh sản phẩm
+                    </span>
+                  </div>
+                  <div className="p-6">
+                    <div className="h-6 bg-[var(--color-sand)]/50 rounded mb-2" />
+                    <div className="h-4 bg-[var(--color-sand)]/30 rounded w-3/4" />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
 
           <div className="text-center mt-12">

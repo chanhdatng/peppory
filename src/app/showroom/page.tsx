@@ -1,11 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { products, categories, formatPrice } from "@/data/products";
+import Image from "next/image";
+import type { Product } from "@/lib/supabase";
+
+const categories = [
+  { id: "all", name: "Tất cả" },
+  { id: "binh-hoa", name: "Bình hoa" },
+  { id: "tach-ly", name: "Tách & Ly" },
+  { id: "chau-cay", name: "Chậu cây" },
+  { id: "dia-bat", name: "Đĩa & Bát" },
+  { id: "trang-tri", name: "Trang trí" },
+];
+
+function formatPrice(price: number) {
+  return new Intl.NumberFormat("vi-VN").format(price) + "đ";
+}
 
 export default function ShowroomPage() {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/admin/products")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
 
   const filteredProducts =
     activeCategory === "all"
@@ -51,31 +77,53 @@ export default function ShowroomPage() {
 
       {/* Product Grid */}
       <section className="py-12 px-6">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          {filteredProducts.map((product) => (
-            <div
-              key={product.id}
-              className="group bg-[var(--color-cream)] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer"
-            >
-              <div className="aspect-square bg-[var(--color-sand)]/50 flex items-center justify-center relative overflow-hidden">
-                <span className="text-[var(--color-charcoal)]/30">
-                  Ảnh sản phẩm
-                </span>
-                <div className="absolute inset-0 bg-[var(--color-charcoal)]/0 group-hover:bg-[var(--color-charcoal)]/10 transition-colors" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-[family-name:var(--font-playfair)] text-xl text-[var(--color-charcoal)] mb-2">
-                  {product.name}
-                </h3>
-                <p className="text-[var(--color-charcoal)]/60 text-sm mb-3">
-                  {product.description}
-                </p>
-                <p className="font-[family-name:var(--font-caveat)] text-xl text-[var(--color-terracotta)]">
-                  {formatPrice(product.price)}
-                </p>
-              </div>
+        <div className="max-w-6xl mx-auto">
+          {loading ? (
+            <p className="text-center text-[var(--color-charcoal)]/50">
+              Đang tải sản phẩm...
+            </p>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-8">
+              {filteredProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="group bg-[var(--color-cream)] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="aspect-square bg-[var(--color-sand)]/50 flex items-center justify-center relative overflow-hidden">
+                    {product.image_url ? (
+                      <Image
+                        src={product.image_url}
+                        alt={product.name}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="text-[var(--color-charcoal)]/30">
+                        Ảnh sản phẩm
+                      </span>
+                    )}
+                    <div className="absolute inset-0 bg-[var(--color-charcoal)]/0 group-hover:bg-[var(--color-charcoal)]/10 transition-colors" />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-[family-name:var(--font-playfair)] text-xl text-[var(--color-charcoal)] mb-2">
+                      {product.name}
+                    </h3>
+                    <p className="text-[var(--color-charcoal)]/60 text-sm mb-3">
+                      {product.description}
+                    </p>
+                    <p className="font-[family-name:var(--font-caveat)] text-xl text-[var(--color-terracotta)]">
+                      {formatPrice(product.price)}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
+          {!loading && filteredProducts.length === 0 && (
+            <p className="text-center text-[var(--color-charcoal)]/50">
+              Không có sản phẩm nào trong danh mục này
+            </p>
+          )}
         </div>
       </section>
 
