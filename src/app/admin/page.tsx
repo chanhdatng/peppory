@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import type { Product } from "@/lib/supabase";
 
 const categories = [
@@ -19,6 +20,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,9 +31,43 @@ export default function AdminPage() {
     is_featured: false,
   });
 
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const formDataUpload = new FormData();
+      formDataUpload.append("file", file);
+
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formDataUpload,
+      });
+
+      if (res.ok) {
+        const { url } = await res.json();
+        setFormData({ ...formData, image_url: url });
+      } else {
+        alert("Upload thất bại");
+      }
+    } catch {
+      alert("Upload thất bại");
+    }
+    setUploading(false);
+  }
+
   // Check if already authenticated
   useEffect(() => {
-    fetchProducts().then(() => setIsAuthenticated(true)).catch(() => {});
+    fetch("/api/admin/auth")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.authenticated) {
+          setIsAuthenticated(true);
+          fetchProducts();
+        }
+      })
+      .catch(() => {});
   }, []);
 
   async function handleLogin(e: React.FormEvent) {
@@ -257,15 +293,52 @@ export default function AdminPage() {
                 </div>
                 <div>
                   <label className="text-[var(--color-charcoal)]/70 text-sm block mb-2">
-                    URL hình ảnh
+                    Hình ảnh
                   </label>
-                  <input
-                    type="url"
-                    value={formData.image_url}
-                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                    placeholder="https://..."
-                    className="w-full px-4 py-3 bg-white border border-[var(--color-sand)] rounded-xl focus:border-[var(--color-terracotta)] focus:outline-none"
-                  />
+                  <div className="space-y-3">
+                    {/* Image Preview */}
+                    {formData.image_url && (
+                      <div className="relative w-32 h-32 rounded-xl overflow-hidden bg-[var(--color-sand)]/50">
+                        <Image
+                          src={formData.image_url}
+                          alt="Preview"
+                          fill
+                          className="object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, image_url: "" })}
+                          className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full text-xs"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    )}
+                    {/* Upload Button */}
+                    <label className="block">
+                      <span className="inline-block px-4 py-2 bg-[var(--color-sage)] hover:bg-[var(--color-sage)]/80 text-white rounded-full cursor-pointer text-sm transition-colors">
+                        {uploading ? "Đang tải..." : "Chọn ảnh từ máy"}
+                      </span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        disabled={uploading}
+                        className="hidden"
+                      />
+                    </label>
+                    {/* Or URL input */}
+                    <div className="flex items-center gap-2">
+                      <span className="text-[var(--color-charcoal)]/50 text-sm">hoặc</span>
+                      <input
+                        type="url"
+                        value={formData.image_url}
+                        onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                        placeholder="Nhập URL ảnh"
+                        className="flex-1 px-3 py-2 text-sm bg-white border border-[var(--color-sand)] rounded-lg focus:border-[var(--color-terracotta)] focus:outline-none"
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <input

@@ -103,3 +103,21 @@ export async function deleteProduct(id: string) {
 
   if (error) throw error;
 }
+
+// Storage functions
+export async function uploadProductImage(file: File): Promise<string> {
+  const client = getSupabase();
+  if (!client) throw new Error("Supabase not configured");
+
+  const fileExt = file.name.split(".").pop();
+  const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+
+  const { error } = await client.storage
+    .from("products")
+    .upload(fileName, file);
+
+  if (error) throw error;
+
+  const { data } = client.storage.from("products").getPublicUrl(fileName);
+  return data.publicUrl;
+}

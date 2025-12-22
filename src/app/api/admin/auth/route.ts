@@ -4,6 +4,12 @@ import { cookies } from "next/headers";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "peppory2024";
 const SESSION_NAME = "peppory_admin_session";
 
+export async function GET() {
+  const cookieStore = await cookies();
+  const isAuth = cookieStore.get(SESSION_NAME)?.value === "authenticated";
+  return NextResponse.json({ authenticated: isAuth });
+}
+
 export async function POST(request: Request) {
   const { password } = await request.json();
 
