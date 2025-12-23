@@ -1,16 +1,35 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Only create client if we have valid config
-let supabase: SupabaseClient | null = null;
-
-function getSupabase() {
-  if (!supabase && supabaseUrl && supabaseAnonKey && supabaseUrl.startsWith("http")) {
-    supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Create a new Supabase client for each request (serverless-friendly)
+function getSupabase(): SupabaseClient | null {
+  // Validate environment variables
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error("Missing Supabase environment variables:", {
+      hasUrl: !!supabaseUrl,
+      hasKey: !!supabaseAnonKey,
+    });
+    return null;
   }
-  return supabase;
+
+  if (!supabaseUrl.startsWith("http")) {
+    console.error("Invalid Supabase URL:", supabaseUrl);
+    return null;
+  }
+
+  try {
+    return createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: false, // Don't persist sessions in serverless
+        autoRefreshToken: false,
+      },
+    });
+  } catch (error) {
+    console.error("Failed to create Supabase client:", error);
+    return null;
+  }
 }
 
 export interface Product {
@@ -27,14 +46,20 @@ export interface Product {
 
 export async function getProducts(): Promise<Product[]> {
   const client = getSupabase();
-  if (!client) return [];
+  if (!client) {
+    console.error("getProducts: Supabase client not available");
+    return [];
+  }
 
   const { data, error } = await client
     .from("products")
     .select("*")
     .order("created_at", { ascending: false });
 
-  if (error) throw error;
+  if (error) {
+    console.error("getProducts error:", error);
+    throw error;
+  }
   return data as Product[];
 }
 
@@ -68,7 +93,13 @@ export async function getProductById(id: string): Promise<Product | null> {
 
 export async function createProduct(product: Omit<Product, "id" | "created_at" | "updated_at">) {
   const client = getSupabase();
-  if (!client) throw new Error("Supabase not configured");
+  if (!client) {
+    const errorMsg = "Supabase not configured - missing environment variables";
+    console.error("createProduct error:", errorMsg);
+    throw new Error(errorMsg);
+  }
+
+  console.log("Creating product:", { name: product.name, category: product.category });
 
   const { data, error } = await client
     .from("products")
@@ -76,7 +107,17 @@ export async function createProduct(product: Omit<Product, "id" | "created_at" |
     .select()
     .single();
 
-  if (error) throw error;
+  if (error) {
+    console.error("createProduct database error:", {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    });
+    throw error;
+  }
+
+  console.log("Product created successfully:", data.id);
   return data as Product;
 }
 

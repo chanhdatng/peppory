@@ -25,10 +25,23 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
+    console.log("POST /api/admin/products - Request body:", body);
+
     const product = await createProduct(body);
     return NextResponse.json(product);
   } catch (error) {
-    return NextResponse.json({ error: "Failed to create product" }, { status: 500 });
+    console.error("POST /api/admin/products - Error:", error);
+
+    // Return detailed error for debugging
+    const errorMessage = error instanceof Error ? error.message : "Failed to create product";
+    const errorDetails = error instanceof Error && 'code' in error
+      ? { code: (error as any).code, details: (error as any).details }
+      : {};
+
+    return NextResponse.json({
+      error: errorMessage,
+      ...errorDetails
+    }, { status: 500 });
   }
 }
 
