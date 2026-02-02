@@ -44,6 +44,27 @@ export interface Product {
   updated_at: string;
 }
 
+export interface OrderItem {
+  product_id: string;
+  product_name: string;
+  quantity: number;
+  price: number;
+}
+
+export interface Order {
+  id: string;
+  customer_name: string;
+  customer_phone: string;
+  customer_address: string | null;
+  items: OrderItem[];
+  shipping_fee: number;
+  total: number;
+  status: "pending" | "processing" | "completed" | "cancelled";
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export async function getProducts(): Promise<Product[]> {
   const client = getSupabase();
   if (!client) {
@@ -142,6 +163,68 @@ export async function deleteProduct(id: string) {
 
   const { error } = await client.from("products").delete().eq("id", id);
 
+  if (error) throw error;
+}
+
+// Order functions
+export async function getOrders(): Promise<Order[]> {
+  const client = getSupabase();
+  if (!client) {
+    console.error("getOrders: Supabase client not available");
+    return [];
+  }
+
+  const { data, error } = await client
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("getOrders error:", error);
+    throw error;
+  }
+  return data as Order[];
+}
+
+export async function createOrder(order: Omit<Order, "id" | "created_at" | "updated_at">) {
+  const client = getSupabase();
+  if (!client) {
+    throw new Error("Supabase not configured");
+  }
+
+  const { data, error } = await client
+    .from("orders")
+    .insert(order)
+    .select()
+    .single();
+
+  if (error) {
+    console.error("createOrder error:", error);
+    throw error;
+  }
+  return data as Order;
+}
+
+export async function updateOrder(id: string, order: Partial<Order>) {
+  const client = getSupabase();
+  if (!client) throw new Error("Supabase not configured");
+
+  const { data, error } = await client
+    .from("orders")
+    .update({ ...order, updated_at: new Date().toISOString() })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data as Order;
+}
+
+export async function deleteOrder(id: string) {
+  const client = getSupabase();
+  if (!client) throw new Error("Supabase not configured");
+
+  const { error } = await client.from("orders").delete().eq("id", id);
   if (error) throw error;
 }
 
