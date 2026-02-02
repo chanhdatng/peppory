@@ -42,7 +42,7 @@ export function Footer() {
           <ul className="space-y-2 text-[var(--color-cream)]/70">
             <li>nhannho86@gmail.com</li>
             <li>0705944351</li>
-            <li>TP. Hồ Chí Minh</li>
+            <li>32A Nguyễn Bá Huân, Thảo Điền, HCM</li>
           </ul>
         </div>
       </div>

@@ -29,7 +29,7 @@ const contactInfo = [
       </svg>
     ),
     title: "Địa chỉ xưởng",
-    content: "123 Đường ABC, Quận XYZ\nTP. Hồ Chí Minh",
+    content: "32A Nguyễn Bá Huân, Thảo Điền\nTP. Hồ Chí Minh",
     color: "terracotta",
   },
   {
