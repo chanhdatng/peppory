@@ -49,7 +49,7 @@ const contactInfo = [
       </svg>
     ),
     title: "Email",
-    content: "hello@peppory.vn",
+    content: "nhannho86@gmail.com",
     color: "sage",
   },
   {
@@ -69,7 +69,7 @@ const contactInfo = [
       </svg>
     ),
     title: "Điện thoại",
-    content: "0909 xxx xxx",
+    content: "0705944351",
     color: "terracotta",
   },
 ];

@@ -40,8 +40,8 @@ export function Footer() {
         <div>
           <h4 className="font-semibold mb-4">Liên hệ</h4>
           <ul className="space-y-2 text-[var(--color-cream)]/70">
-            <li>hello@peppory.vn</li>
-            <li>0909 xxx xxx</li>
+            <li>nhannho86@gmail.com</li>
+            <li>0705944351</li>
             <li>TP. Hồ Chí Minh</li>
           </ul>
         </div>
